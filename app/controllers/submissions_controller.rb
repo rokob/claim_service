@@ -5,31 +5,31 @@ class SubmissionsController < ApplicationController
   end
 
   def create
-    @submission = Submission.new(submission_params)
-    unless @submission.save
-      render json: {errors: @submmission.errors.full_messages}, status: :bad_request
+    submission = Submission.new(submission_params)
+    unless submission.save
+      render json: {errors: submmission.errors.full_messages}, status: :bad_request
       return
     end
 
-    @claim = Claim.new(
-      insured_id: @submission.insured_id,
-      provider_id: @submission.provider_id
+    claim = Claim.new(
+      insured_id: submission.insured_id,
+      provider_id: submission.provider_id
     )
-    unless @claim.save
-      @submission.delete
-      render json: {errors: @claim.errors.full_messages}, status: :bad_request
+    unless claim.save
+      submission.delete
+      render json: {errors: claim.errors.full_messages}, status: :bad_request
       return
     end
 
-    @submission.claim = @claim
-    unless @submission.save
-      @submisson.delete
-      @claim.delete
-      render json: {errors: @submmission.errors.full_messages}, status: :bad_request
+    submission.claim = claim
+    unless submission.save
+      submisson.delete
+      claim.delete
+      render json: {errors: submmission.errors.full_messages}, status: :bad_request
       return
     end
 
-    render json: {submission: @submission.id, claim: @claim.id}
+    render json: {submission: submission.id, claim: claim.id}
   end
 
   private
