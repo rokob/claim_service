@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate
-  respond_to :json
 
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
