@@ -14,7 +14,7 @@ class SearchController < ApplicationController
       query['result_types'] = ['claim'] # claim is default search type
     end
 
-    @submission_results, @claim_results = [], []
+    @submission_results, @claim_results = nil, nil
     if query['result_types'].include?('submission')
       submission_query = query.select{|k,_| SUBMISSION_QUERY_KEYS.include? k}
       @submission_results = Submission.where(submission_query)
