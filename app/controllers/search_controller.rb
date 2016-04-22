@@ -6,6 +6,13 @@ class SearchController < ApplicationController
   SUBMISSION_QUERY_KEYS = %w{ insured_id provider_id }
   CLAIM_QUERY_KEYS = %w{ insured_id provider_id status }
 
+  # The structure of the JSON query object was open ended so I made something
+  # up. The search basically allows key/value pairs for exact matches,
+  # allows a from/to field for searching service dates, and allows to
+  # select whether you want submission, claim, or both model types returned.
+  # I would have to understand better how this would be used to really
+  # do something real here. Also, search is usually better handled by a
+  # dedicated tool for search rather than piecing together arel.
   def search
     query = search_params.select{|k,_| PERMITTED_KEYS.include? k}
     if query['result_types'].present?
