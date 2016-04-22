@@ -2,10 +2,21 @@ class ClaimsController < ApplicationController
   before_action :require_internal_user
 
   def show
-    render json: {error: 'unimplemented'}, status: :not_implemented
+    @claim = Claim.find(params[:id])
+    render json: @claim
   end
 
   def update
-    render json: {error: 'unimplemented'}, status: :not_implemented
+    claim = Claim.find(params[:id])
+    if claim.update(claim_params)
+      head :ok
+    else
+      render json: {errors: claim.errors.full_messages}, status: :bad_request
+    end
   end
+
+  private
+    def claim_params
+      params.require(:claim).permit(:status, services: [:code, :cost, :date])
+    end
 end
