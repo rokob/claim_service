@@ -1,12 +1,11 @@
 class Claim < ActiveRecord::Base
-  has_one :submission
+  has_one  :submission
   has_many :services
 
   enum status: {
-    unprocessed: 0,
-    pending: 1,
-    paid: 2,
-    rejected: 3
+    created: 0,
+    in_process: 1,
+    processed: 2
   }
 
 end
