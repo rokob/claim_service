@@ -14,6 +14,13 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def require_internal_user
+      unless current_user.internal
+        head status: :unauthorized
+        return false
+      end
+    end
+
     def current_user
       @user
     end
