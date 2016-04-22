@@ -8,5 +8,9 @@ class CreateSubmissions < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    add_index :submissions, :insured_id
+    add_index :submissions, :provider_id
+
   end
 end
