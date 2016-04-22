@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate
+  before_action :set_default_response_format
 
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
@@ -12,6 +13,10 @@ class ApplicationController < ActionController::Base
         head status: :unauthorized
         return false
       end
+    end
+
+    def set_default_response_format
+      request.format = :json
     end
 
     def require_internal_user
