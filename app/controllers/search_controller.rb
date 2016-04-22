@@ -30,6 +30,7 @@ class SearchController < ApplicationController
       elsif query['to']
         @claim_results = @claim_results.joins(:services).where('services.date < ?', query['to'])
       end
+      @claim_results = @claim_results.uniq
     end
   end
 
