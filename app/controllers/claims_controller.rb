@@ -3,7 +3,6 @@ class ClaimsController < ApplicationController
 
   def show
     @claim = Claim.find(params[:id])
-    render json: @claim
   end
 
   def update
@@ -17,6 +16,6 @@ class ClaimsController < ApplicationController
 
   private
     def claim_params
-      params.require(:claim).permit(:status, services: [:code, :cost, :date])
+      params.require(:claim).permit(:status, services_attributes: [:id, :code, :cost, :date, :_destroy])
     end
 end

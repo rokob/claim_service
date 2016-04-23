@@ -1,7 +1,6 @@
 class SubmissionsController < ApplicationController
   def show
     @submission = Submission.find(params[:id])
-    render json: @submission
   end
 
   # There are three ways to do this
@@ -44,7 +43,7 @@ class SubmissionsController < ApplicationController
 
   private
     def submission_params
-      params.permit(
+      params.require(:submission).permit(
         :insured_id,
         :provider_id,
         :services
